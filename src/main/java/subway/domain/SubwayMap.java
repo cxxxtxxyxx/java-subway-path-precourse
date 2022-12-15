@@ -14,115 +14,38 @@ public class SubwayMap {
     public List<Station> getStations(Station start, Station end) {
         return dijkstraShortestPath.getPath(start, end).getVertexList();
     }
+
     public int getShortestPath(Station start, Station end) {
-        return (int)dijkstraShortestPath.getPath(start, end).getWeight();
+        return (int) dijkstraShortestPath.getPath(start, end).getWeight();
     }
 
     public void setSubwayMapByDistance() {
         StationRepository.stations().stream()
                 .forEach(station -> subwayMap.addVertex(station));
 
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("교대역"),
-                        StationRepository.getStationByName("강남역")
-                )
-                ,2);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("강남역"),
-                        StationRepository.getStationByName("역삼역")
-                )
-                ,2);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("교대역"),
-                        StationRepository.getStationByName("남부터미널역")
-                )
-                ,3);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("남부터미널역"),
-                        StationRepository.getStationByName("양재역")
-                )
-                ,6);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("양재역"),
-                        StationRepository.getStationByName("매봉역")
-                )
-                ,1);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("강남역"),
-                        StationRepository.getStationByName("양재역")
-                )
-                ,2);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("양재역"),
-                        StationRepository.getStationByName("양재시민의숲역")
-                )
-                ,10);
+        DistanceBetweenStation.getDistanceBetweenStation().stream()
+                .forEach(information -> {
+                    subwayMap.setEdgeWeight(
+                            subwayMap.addEdge(
+                                    StationRepository.getStationByName(information.get(0)),
+                                    StationRepository.getStationByName(information.get(1))
+                            )
+                            , Integer.parseInt(information.get(2)));
+                });
     }
 
     public void setSubwayMapByTime() {
         StationRepository.stations().stream()
                 .forEach(station -> subwayMap.addVertex(station));
 
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("교대역"),
-                        StationRepository.getStationByName("강남역")
-                )
-                ,3);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("강남역"),
-                        StationRepository.getStationByName("역삼역")
-                )
-                ,3);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("교대역"),
-                        StationRepository.getStationByName("남부터미널역")
-                )
-                ,2);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("남부터미널역"),
-                        StationRepository.getStationByName("양재역")
-                )
-                ,5);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("양재역"),
-                        StationRepository.getStationByName("매봉역")
-                )
-                ,1);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("강남역"),
-                        StationRepository.getStationByName("양재역")
-                )
-                ,8);
-
-        subwayMap.setEdgeWeight(
-                subwayMap.addEdge(
-                        StationRepository.getStationByName("양재역"),
-                        StationRepository.getStationByName("양재시민의숲역")
-                )
-                ,3);
+        TimeBetweenStation.getTimeBetweenStation().stream()
+                .forEach(information -> {
+                    subwayMap.setEdgeWeight(
+                            subwayMap.addEdge(
+                                    StationRepository.getStationByName(information.get(0)),
+                                    StationRepository.getStationByName(information.get(1))
+                            )
+                            , Integer.parseInt(information.get(2)));
+                });
     }
 }
