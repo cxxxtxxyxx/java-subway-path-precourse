@@ -20,6 +20,13 @@ public class LineRepository {
         return lines.removeIf(line -> Objects.equals(line.getName(), name));
     }
 
+    public static Line getLine(String name) {
+        return lines().stream()
+                .filter(line -> line.getName().equals(name))
+                .findFirst()
+                .get();
+    }
+
     public static void deleteAll() {
         lines.clear();
     }
