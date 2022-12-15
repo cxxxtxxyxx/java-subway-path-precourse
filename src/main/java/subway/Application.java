@@ -10,6 +10,8 @@ import subway.domain.Station;
 import subway.domain.StationRepository;
 import subway.domain.SubwayMap;
 import subway.domain.SubwayMapRepository;
+import subway.view.InputView;
+import subway.view.OutputView;
 
 public class Application {
     public static SubwayMap subwayMapByDistance;
@@ -18,6 +20,38 @@ public class Application {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
         setInformation();
+
+        while(true) {
+            InputView.mainView();
+            InputView.inputCommand();
+            String command = scanner.nextLine();
+            if(command.equals("Q")) {
+                break;
+            }
+
+            InputView.selectCriteria();
+            InputView.inputCommand();
+            command = scanner.nextLine();
+            if(command.equals("B")) {
+                continue;
+            }
+
+            SubwayMap mainMap = subwayMapByDistance;
+
+            if(command.equals("2")) {
+                mainMap = subwayMapByTime;
+            }
+
+            InputView.inputStartStation();
+            String startStationName = scanner.nextLine();
+
+            InputView.inputEndStation();
+            String endStationName = scanner.nextLine();
+
+            OutputView.printResult(startStationName, endStationName, command);
+        }
+
+
 
     }
 
