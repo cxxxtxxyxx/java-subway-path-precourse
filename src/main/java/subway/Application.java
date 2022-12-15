@@ -4,6 +4,7 @@ package subway;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import subway.constants.Command;
 import subway.domain.Line;
 import subway.domain.LineRepository;
 import subway.domain.Station;
@@ -25,20 +26,20 @@ public class Application {
             InputView.mainView();
             InputView.inputCommand();
             String command = scanner.nextLine();
-            if(command.equals("Q")) {
+            if(Command.isQuit(command)) {
                 break;
             }
 
             InputView.selectCriteria();
             InputView.inputCommand();
             command = scanner.nextLine();
-            if(command.equals("B")) {
+            if(Command.isBack(command)) {
                 continue;
             }
 
             SubwayMap mainMap = subwayMapByDistance;
 
-            if(command.equals("2")) {
+            if(Command.isShortTimeAsCriteria(command)) {
                 mainMap = subwayMapByTime;
             }
 
